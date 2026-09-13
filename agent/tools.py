@@ -8,7 +8,13 @@ from langchain.tools import tool
 
 from api import PricingSheet
 
-from .schema import CalculatePriceInput, INPUT_OPTIONS, OUTPUT_NAMES, PARAM_TO_LABEL
+from .schema import (
+    FACTORY_DEFAULTS,
+    CalculatePriceInput,
+    INPUT_OPTIONS,
+    OUTPUT_NAMES,
+    PARAM_TO_LABEL,
+)
 
 _sheet: PricingSheet | None = None
 
@@ -44,3 +50,15 @@ def calculate_price(**kwargs: Any) -> dict[str, Any]:
         label = PARAM_TO_LABEL[param]
         values[label] = _normalize(label, value)
     return _get_sheet().quote(values or None)
+
+
+@tool(
+    "reset_factory_defaults",
+    description=(
+        "Reset Pricing Tool inputs to factory defaults and return every quote output "
+        f"({', '.join(OUTPUT_NAMES)}). "
+        "Use this to start a fresh quote or when the user asks to reset the sheet."
+    ),
+)
+def reset_factory_defaults() -> dict[str, Any]:
+    return _get_sheet().quote(FACTORY_DEFAULTS)
