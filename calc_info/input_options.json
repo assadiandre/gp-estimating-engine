@@ -1,0 +1,348 @@
+{
+  "Paper": {
+    "type": "string",
+    "hint": "Paper stock name from the list, e.g. 100# Uncoated Cover.",
+    "options": [
+      "130# Uncoated Cover",
+      "120# Silk Cover",
+      "100# Silk Cover",
+      "100# Uncoated Cover",
+      "100# Grocer Kraft",
+      "80# Silk Cover",
+      "80# Uncoated Cover",
+      "20 pt Kraft Board",
+      "16PT Tango",
+      "Custom Cover",
+      "100# Silk Text",
+      "100# Uncoated Text",
+      "80# Silk Text",
+      "80# Uncoated Text",
+      "70# Uncoated Text",
+      "70# Kraft Label",
+      "70# High Gloss Label",
+      "70# Uncoated Label",
+      "Custom Text"
+    ]
+  },
+  "Press": {
+    "type": "string",
+    "hint": "Which press runs the job: Digital, Offset, Banner Feeder, or No Printing.",
+    "options": [
+      "Digital",
+      "Offset",
+      "Banner Feeder",
+      "No Printing"
+    ]
+  },
+  "Product": {
+    "type": "string",
+    "hint": "Product type that selects the pricing model, e.g. Flat Cards.",
+    "options": [
+      "Business Cards",
+      "Card Decks",
+      "Calendars",
+      "Flat Cards",
+      "Folded Cards",
+      "Labels",
+      "Notepads",
+      "Packaging & Boxes",
+      "Perfect Bound",
+      "Pocket Folders",
+      "Postcards",
+      "Saddle Stitched",
+      "Packing Sleeves",
+      "Wire-O"
+    ]
+  },
+  "Size": {
+    "type": "string",
+    "hint": "Finished size as width x height in inches, e.g. 8x12.",
+    "options": []
+  },
+  "Hard Proof": {
+    "type": "string",
+    "hint": "Proof type, e.g. Softproof or 2 Day Hardproof.",
+    "options": [
+      "Softproof",
+      "2 Day Hardproof",
+      "Next Day Hardproof",
+      "Color proof"
+    ]
+  },
+  "Color": {
+    "type": "string",
+    "hint": "Ink coverage string from the list, e.g. 4/4 Full Color(2 sides).",
+    "options": [
+      "4/4 Full Color(2 sides)",
+      "4/0 Full Color(1 full color, 1 blank)",
+      "4/1 Full Color + 1 Color (2 sides)",
+      "White Ink (1 side)",
+      "White Ink (2 sides)",
+      "White Ink + Full Color (1 side)",
+      "White Ink + Full Color (2 sides)",
+      "Black Ink (1 side)",
+      "Black Ink (2 sides)",
+      "Black Ink + Full Color (1 side)",
+      "Black Ink + Full Color (2 sides)",
+      "Black ink + White ink (1 side)",
+      "Black ink + White ink (2 sides)",
+      "Black Ink + White Ink / White Ink (2 Sides)",
+      "Black Ink + White Ink / Black Ink +White Ink (2 Sides)",
+      "Blank"
+    ]
+  },
+  "PMS Color": {
+    "type": "string",
+    "hint": "Spot color: Standard, Special, or No.",
+    "options": [
+      "Standard",
+      "Special",
+      "No"
+    ]
+  },
+  "Profit": {
+    "type": "number",
+    "hint": "Markup as a decimal less than 50. Example: 0.43 means 43%.",
+    "options": []
+  },
+  "Versions": {
+    "type": "integer",
+    "hint": "How many versions to print. Whole number, 1 or greater.",
+    "options": []
+  },
+  "Die Cut": {
+    "type": "string",
+    "hint": "No or Yes, or override the machine: Intec, KAMA, KAMA (Die).",
+    "options": [
+      "Yes",
+      "Intec",
+      "KAMA",
+      "No",
+      "KAMA (Die)"
+    ]
+  },
+  "Round Corner": {
+    "type": "string",
+    "hint": "No or Yes, or override: By Hand, DCM, DCM (Die).",
+    "options": [
+      "No",
+      "Yes",
+      "By Hand",
+      "DCM",
+      "DCM (Die)"
+    ]
+  },
+  "Folding": {
+    "type": "string",
+    "hint": "Fold style from the list, or No if the piece does not fold.",
+    "options": [
+      "Accordion Fold (4 Panel)",
+      "Accordion Fold (5 Panel)",
+      "Accordion Fold (6 Panel)",
+      "Roll Fold (4 Panel)",
+      "Roll Fold (5 Panel)",
+      "Z Fold (3 Panel)",
+      "Gate Fold",
+      "Double Gate Fold",
+      "Tri Fold",
+      "Single Fold",
+      "Newsletter (signature fold)",
+      "Custom",
+      "No"
+    ]
+  },
+  "Drilling": {
+    "type": "string",
+    "hint": "",
+    "options": [
+      "No",
+      "Yes"
+    ]
+  },
+  "Stringing & Drilling": {
+    "type": "string",
+    "hint": "No, Natural, or Custom hang-tag stringing.",
+    "options": [
+      "No",
+      "Natural",
+      "Custom"
+    ]
+  },
+  "Fiber Reinforced": {
+    "type": "string",
+    "hint": "",
+    "options": [
+      "Yes",
+      "No"
+    ]
+  },
+  "Kleenstick": {
+    "type": "string",
+    "hint": "No, Yes, By hand, or Dickmoll for the application method.",
+    "options": [
+      "Yes",
+      "By hand",
+      "Dickmoll",
+      "No"
+    ]
+  },
+  "Laminating": {
+    "type": "string",
+    "hint": "No, 1 Side, or 2 Sides.",
+    "options": [
+      "No",
+      "1 Side",
+      "2 Sides"
+    ]
+  },
+  "Digital Foil": {
+    "type": "string",
+    "hint": "No, 1 Side, or 2 Sides.",
+    "options": [
+      "No",
+      "1 Side",
+      "2 Sides"
+    ]
+  },
+  "Scoring": {
+    "type": "string",
+    "hint": "",
+    "options": [
+      "Yes",
+      "No"
+    ]
+  },
+  "Perforation": {
+    "type": "string",
+    "hint": "",
+    "options": [
+      "Yes",
+      "No"
+    ]
+  },
+  "Emboss / Deboss": {
+    "type": "string",
+    "hint": "No, Yes, or Die if an existing die should be used.",
+    "options": [
+      "Yes",
+      "Die",
+      "No"
+    ]
+  },
+  "Eyelet": {
+    "type": "string",
+    "hint": "",
+    "options": [
+      "Yes",
+      "No"
+    ]
+  },
+  "Hand Glueing": {
+    "type": "string",
+    "hint": "",
+    "options": [
+      "Yes",
+      "No"
+    ]
+  },
+  "Hand Folding": {
+    "type": "string",
+    "hint": "",
+    "options": [
+      "Yes",
+      "No"
+    ]
+  },
+  "Shrinkwrap": {
+    "type": "string",
+    "hint": "",
+    "options": [
+      "Yes",
+      "No"
+    ]
+  },
+  "Envelopes": {
+    "type": "string",
+    "hint": "Envelope style from the list, or No if none.",
+    "options": [
+      "A2 Cougar",
+      "A6 Cougar",
+      "A7 Cougar",
+      "#10 Window White Wove",
+      "#10 Cougar",
+      "#9 Cougar Wove",
+      "#9 Remit",
+      "#6.5 Remit",
+      "No"
+    ]
+  },
+  "Printed Envelope": {
+    "type": "string",
+    "hint": "",
+    "options": [
+      "Yes",
+      "No"
+    ]
+  },
+  "Envelopes Quantity": {
+    "type": "integer",
+    "hint": "How many envelopes. Use 0 when Envelopes is No.",
+    "options": []
+  },
+  "Bundling (Card Decks)": {
+    "type": "string",
+    "hint": "",
+    "options": [
+      "Yes",
+      "No"
+    ]
+  },
+  "Kitting": {
+    "type": "string",
+    "hint": "",
+    "options": [
+      "Yes",
+      "No"
+    ]
+  },
+  "Corner Clip": {
+    "type": "string",
+    "hint": "",
+    "options": [
+      "Yes",
+      "No"
+    ]
+  },
+  "Postage": {
+    "type": "string",
+    "hint": "Mail class: No, Standard, First Class, Non-Profit, or Stamps.",
+    "options": [
+      "No",
+      "Standard",
+      "First Class",
+      "Non-Profit",
+      "Stamps"
+    ]
+  },
+  "Adressing": {
+    "type": "string",
+    "hint": "",
+    "options": [
+      "Yes",
+      "No"
+    ]
+  },
+  "EDDM": {
+    "type": "string",
+    "hint": "",
+    "options": [
+      "Yes",
+      "No"
+    ]
+  },
+  "Quantity": {
+    "type": "integer",
+    "hint": "Order quantity as a whole number of pieces, e.g. 100000.",
+    "options": []
+  }
+}
