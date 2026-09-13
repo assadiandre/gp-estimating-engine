@@ -7,3 +7,9 @@ You ask for a quote in plain language. The agent updates the sheet through Micro
 ```bash
 python -m agent "quote 5000 flat cards"
 ```
+
+## v1
+
+A simple text → output price calculator.
+
+You type what you want. It writes those inputs to the Pricing Tool and returns the quote.
