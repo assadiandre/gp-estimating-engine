@@ -13,3 +13,5 @@ python -m agent "quote 5000 flat cards"
 A simple text → output price calculator.
 
 You type what you want. It writes those inputs to the Pricing Tool and returns the quote.
+
+See [Microsoft Graph API setup](docs/microsoft-graph-setup.md) to connect the Excel workbook.
