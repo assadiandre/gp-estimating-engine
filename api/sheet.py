@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -11,6 +12,7 @@ from .spreadsheet import Spreadsheet
 
 CALC_INFO_DIR = Path(__file__).resolve().parent.parent / "calc_info"
 SHEET_NAME = "Pricing Tool"
+_A1 = re.compile(r"^([A-Z]+)(\d+)$")
 
 
 def _load_json(name: str) -> dict[str, Any]:
@@ -22,6 +24,34 @@ def _cell_value(payload: dict[str, Any]) -> Any:
     if not values or not values[0]:
         return None
     return values[0][0]
+
+
+def _parse_a1(cell: str) -> tuple[str, int]:
+    match = _A1.match(cell)
+    if not match:
+        raise ValueError(f"Unsupported cell address: {cell}")
+    return match.group(1), int(match.group(2))
+
+
+def _col_index(col: str) -> int:
+    n = 0
+    for char in col:
+        n = n * 26 + (ord(char) - 64)
+    return n
+
+
+def _col_letter(index: int) -> str:
+    letters: list[str] = []
+    while index:
+        index, remainder = divmod(index - 1, 26)
+        letters.append(chr(65 + remainder))
+    return "".join(reversed(letters))
+
+
+def _grid_value(grid: list[list[Any]], row: int, col: int) -> Any:
+    if row >= len(grid) or col >= len(grid[row]):
+        return None
+    return grid[row][col]
 
 
 class PricingSheet:
@@ -60,16 +90,22 @@ class PricingSheet:
         return values
 
     def get_outputs(self) -> dict[str, Any]:
-        return {name: self._read(cell) for name, cell in self.output_cells.items()}
+        return self._read_cells(self.output_cells)
 
     def set_input(self, name: str, value: Any) -> Any:
-        cell = self._require_input(name)
-        coerced = self._coerce(name, value)
-        updated = self.spreadsheet.update_range(SHEET_NAME, cell, [[coerced]])
-        return _cell_value(updated)
+        return self.set_inputs({name: value})[name]
 
     def set_inputs(self, values: dict[str, Any]) -> dict[str, Any]:
-        return {name: self.set_input(name, value) for name, value in values.items()}
+        by_column: dict[str, dict[int, Any]] = {}
+        written: dict[str, Any] = {}
+        for name, value in values.items():
+            col, row = _parse_a1(self._require_input(name))
+            coerced = self._coerce(name, value)
+            by_column.setdefault(col, {})[row] = coerced
+            written[name] = coerced
+        for col, rows in by_column.items():
+            self._write_column(col, rows)
+        return written
 
     def quote(self, values: dict[str, Any] | None = None) -> dict[str, Any]:
         if values:
@@ -78,6 +114,34 @@ class PricingSheet:
 
     def _read(self, cell: str) -> Any:
         return _cell_value(self.spreadsheet.read_range(SHEET_NAME, cell))
+
+    def _read_cells(self, cells: dict[str, str]) -> dict[str, Any]:
+        parsed = {name: _parse_a1(cell) for name, cell in cells.items()}
+        cols = [_col_index(col) for col, _ in parsed.values()]
+        rows = [row for _, row in parsed.values()]
+        min_col, max_col = min(cols), max(cols)
+        min_row, max_row = min(rows), max(rows)
+        address = f"{_col_letter(min_col)}{min_row}:{_col_letter(max_col)}{max_row}"
+        grid = self.spreadsheet.read_range(SHEET_NAME, address).get("values") or []
+        values: dict[str, Any] = {}
+        for name, (col, row) in parsed.items():
+            values[name] = _grid_value(grid, row - min_row, _col_index(col) - min_col)
+        return values
+
+    def _write_column(self, col: str, rows: dict[int, Any]) -> None:
+        min_row, max_row = min(rows), max(rows)
+        address = f"{col}{min_row}:{col}{max_row}"
+        if max_row - min_row + 1 == len(rows):
+            payload = [[rows[row]] for row in range(min_row, max_row + 1)]
+        else:
+            current = self.spreadsheet.read_range(SHEET_NAME, address).get("values") or []
+            payload = []
+            for offset, row in enumerate(range(min_row, max_row + 1)):
+                if row in rows:
+                    payload.append([rows[row]])
+                else:
+                    payload.append([_grid_value(current, offset, 0)])
+        self.spreadsheet.update_range(SHEET_NAME, address, payload)
 
     def _require_input(self, name: str) -> str:
         try:
